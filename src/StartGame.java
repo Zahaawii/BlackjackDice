@@ -1,3 +1,4 @@
+import javax.crypto.Mac;
 import java.io.Console;
 import java.util.Scanner;
 
@@ -56,11 +57,29 @@ public class StartGame {
 
             } while (!userChoice.equalsIgnoreCase("N"));
 
-            System.out.println("You choose to hold \nNow it is the machines turn");
-            MachineDice.MachinesTurn();
+        ConsoleOperators.DisplayInfo("Machine says: \nNow it is my time");
+        int machineFirstHand = ThrowDice.DiceValueMultipleTwo();
+        System.out.println("My first hit was: " + machineFirstHand);
 
+        do{
+            int sum = ThrowDice.DiceValue() + machineFirstHand;
+            System.out.println("Machine says: \nMy current dice value: " + sum);
+            machineFirstHand = sum;
+        }  while (machineFirstHand <= 18);
 
+        ConsoleOperators.PrintSeperator(30);
+        System.out.println("Your value: "  + usersFirstHand);
+        System.out.println("Machines value: " + machineFirstHand);
+        ConsoleOperators.PrintSeperator(30);
+        if (usersFirstHand < machineFirstHand && machineFirstHand < 22) {
+            System.out.println("Machine won");
+        } else if (usersFirstHand == machineFirstHand) {
+            System.out.println("Its a tie");
+        } else {
+            System.out.println("You won");
         }
     }
+
+        }
 
 
